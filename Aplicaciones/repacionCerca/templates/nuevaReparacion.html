@@ -29,8 +29,8 @@
             </div>
 
             <div class="mb-3">
-                <label for="fecha" class="form-label">Fecha de la Reparación:</label>
-                <input type="date" name="fecha" id="fecha" class="form-control" required>
+                <label for="fecha1" class="form-label">Fecha de la Reparación:</label>
+                <input type="date" name="fecha1" id="fecha1" class="form-control" required>
             </div>
 
             <div class="mb-3">
@@ -58,7 +58,7 @@
             rules: {
                 cerca: { required: true },
                 equipo: { required: true },
-                fecha: {
+                fecha1: {
                     required: true,
                     dateISO: true
                 },
@@ -71,7 +71,7 @@
                 equipo: {
                     required: "Por favor ingrese el equipo encargado."
                 },
-                fecha: {
+                fecha1: {
                     required: "Por favor ingrese la fecha de reparación.",
                     dateISO: "Por favor ingrese una fecha válida. Ej: 2025-06-12"
                 },

@@ -9,7 +9,7 @@
     <div class="col-md-6 bg-light p-4 rounded shadow-sm">
         <h1 class="mb-4 text-center">Nueva Inspección</h1>
 
-        <form action="guardarInspeccion" id="frm_nuevo_inspeccion" method="post" enctype="multipart/form-data">
+        <form action="/guardarInspeccion" id="frm_nuevo_inspeccion" method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
              <label for="zona" class="form-label">Zona:</label>

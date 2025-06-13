@@ -4,7 +4,7 @@
 <br><br><br><br><br><br>
 <h1 class="text-center">Listado de Reparaciones de la Cerca</h1>
 <br>
-<table class="table table-bordered table-striped table-hover" id="tbl_inspeccion">
+<table class="table table-bordered table-striped table-hover" id="tbl_reparacion">
     <thead>
         <tr class="table-success text-center">
             <th>ID</th>
@@ -17,7 +17,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for cargoReparacion in Repacion %}
+        {% for cargoReparacion in Reparaciones %}
             <tr>
                 <td>{{ cargoReparacion.id }}</td>
                 <td>{{ cargoReparacion.cerca.inspector }}</td>
@@ -35,7 +35,7 @@
                     <a href="editarReparacion/{{ cargoReparacion.id }}" class="btn btn-outline-warning">
                         <i class="fa fa-pen"></i>
                     </a>
-                    <a href="#" onclick="eliminarInspeccion('{{ cargoReparacion.id }}')" class="btn btn-outline-danger">
+                    <a href="#" onclick="eliminarReparacion('{{ cargoReparacion.id }}')" class="btn btn-outline-danger">
                         <i class="fa fa-trash"></i>
                     </a>
                 </td>
@@ -51,7 +51,7 @@
 </div>
 <br><br><br><br><br><br>
 <script>
-    function eliminarInspeccion(id) {
+    function eliminarReparacion(id) {
         Swal.fire({
             title: "¿Desea eliminar?",
             text: "¿Está seguro de eliminar la Reparación de la Cerca de forma permanente?",
@@ -62,7 +62,7 @@
             confirmButtonText: "Sí, borrar"
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "/eliminarInspeccion/" + id;
+                window.location.href = "/eliminarReparacion/" + id;
             }
         });
     }
