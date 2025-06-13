@@ -13,7 +13,7 @@ def inicio3(request):
 
 def nuevaReparacion(request):
     remCercas=repacionCerca.objects.all()
-    return render(request, "nuevaReparacion.html",{'Repacion':remCercas})
+    return render(request, "nuevaReparacion.html",{'cercas':remCercas})
 
 # Función encargada de guardar una nueva prueba en la base de datos
 def guardarReparacion(request):
