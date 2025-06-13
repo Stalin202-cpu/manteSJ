@@ -19,16 +19,16 @@ def nuevaReparacion(request):
 def guardarReparacion(request):
 
     equipo = request.POST["equipo"]
-    fecha1 = request.POST["fecha1"]
+    fecha = request.POST["fecha"]
     materiales = request.POST["materiales"]
 
     reparacionId = request.POST["cerca"]
     cerca=repacionCerca.objects.get(id=reparacionId)
 
-    logo1=request.FILES.get("logo1")
+    logo=request.FILES.get("logo")
 
 
-    inspeccionCerca.objects.create(equipo=equipo, fecha1=fecha1, materiales=materiales, cerca=cerca, logo1=logo1)
+    inspeccionCerca.objects.create(equipo=equipo, fecha=fecha, materiales=materiales, cerca=cerca, logo=logo)
 
     #Mensaje de confirmacion 
     messages.success(request, "La Reparacion de la Serca guardado exitosamente")
@@ -38,8 +38,8 @@ def guardarReparacion(request):
 def eliminarReparacion(request, id):
     repacionEliminar = inspeccionCerca.objects.get(id=id)
 
-    if repacionEliminar.logo1 and os.path.isfile(os.path.join(settings.MEDIA_ROOT, repacionEliminar.logo1.name)):
-        os.remove(os.path.join(settings.MEDIA_ROOT, repacionEliminar.logo1.name))
+    if repacionEliminar.logo and os.path.isfile(os.path.join(settings.MEDIA_ROOT, repacionEliminar.logo.name)):
+        os.remove(os.path.join(settings.MEDIA_ROOT, repacionEliminar.logo.name))
     
     repacionEliminar.delete()
     return redirect('inicio3')
@@ -60,21 +60,21 @@ def procesarEdicionReparacion(request):
     cerca=repacionCerca.objects.get(id=reparacionId)
 
     equipo = request.POST["equipo"]
-    fecha1 = request.POST["fecha1"]
+    fecha = request.POST["fehca"]
     materiales = request.POST["materiales"]
 
-    logo1=request.FILES.get("logo1")
+    logo=request.FILES.get("logo")
 
 
     
     reparacion2=repacionCerca.objects.get(id=id)
     reparacion2.cerca=cerca
     reparacion2.equipo=equipo
-    reparacion2.fecha1=fecha1
+    reparacion2.fehca=fecha
     reparacion2.materiales=materiales
 
-    if logo1 :
-        if reparacion2.logo1:
+    if logo :
+        if reparacion2.logo:
             rutaLogo = os.path.join(settings.MEDIA_ROOT, str(reparacion2.logo1))
             if os.path.isfile(rutaLogo):
                 os.remove(rutaLogo)
