@@ -1,0 +1,84 @@
+{% extends './plantilla.html' %}
+{% load static %}
+{% block contenido %}
+<br><br><br><br><br><br>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 bg-light p-4 rounded shadow-sm">
+        <h1 class="mb-4">Nueva Zona de Seguridad</h1>
+        <form action="guardarZona" id="frm_nuevo_zona" enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+
+            <label for="nombre">Nombre:</label>
+            <input class="form-control mb-3" type="text" name="nombre" id="nombre" required><br>
+
+            <label for="tipoCerca">Tipo de Cerca:</label>
+            <input class="form-control mb-3" type="text" name="tipoCerca" id="tipoCerca" required><br>
+
+            <label for="longitud">Longitud de la Cerca:</label>
+            <input class="form-control mb-3" type="text" name="longitud" id="longitud" required><br>
+
+            <label for="logo">Logotipo:</label>
+            <input type="file" name="logo" id="logo" class="form-control"><br>
+
+            <button class="btn btn-success" type="submit">Guardar</button>
+            <a class="btn btn-outline-danger" href="{% url 'inicio' %}">Cancelar</a>
+        </form>
+        <br>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+
+<!-- Validación con jQuery Validate -->
+<script>
+    $("#frm_nuevo_zona").validate({
+        rules: {
+            "nombre": {
+                required: true,
+                minlength: 3,
+                maxlength: 10
+            },
+            "tipoCerca": {
+                required: true,
+                minlength: 5,
+                maxlength: 30
+            },
+            "longitud": {
+                required: true
+            },
+            "logo": {
+                required: true
+            }
+        },
+        messages: {
+            "nombre": {
+                required: "Por favor, ingrese el nombre.",
+                minlength: "Debe tener al menos 3 letras.",
+                maxlength: "El nombre debe tener como máximo 10 letras."
+            },
+            "tipoCerca": {
+                required: "Por favor, ingrese el tipo de cerca.",
+                minlength: "Debe tener al menos 5 caracteres.",
+                maxlength: "Debe tener como máximo 30 caracteres."
+            },
+            "longitud": {
+                required: "Por favor, ingrese la longitud de la cerca."
+            },
+            "logo": {
+                required: "Por favor, seleccione una imagen."
+            }
+        }
+    });
+</script>
+
+<!-- Plugin FileInput si lo estás usando -->
+<script>
+    $("#logo").fileinput({
+        language: "es",
+        allowedFileExtensions: ["jpg", "jpeg", "png"],
+        showCaption: false,
+        dropZoneEnabled: true,
+        showClose: false
+    });
+</script>
+{% endblock %}

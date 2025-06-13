@@ -1,0 +1,77 @@
+{% extends './plantilla.html' %}
+{% load static %}
+{% block contenido %}
+<br><br><br><br><br><br>
+<h1 class="text-center">Listado de Inspecciones de la Cerca</h1>
+<br>
+<table class="table table-bordered table-striped table-hover" id="tbl_inspeccion">
+    <thead>
+        <tr class="table-success text-center">
+            <th>ID</th>
+            <th>ZONA DE LA INSPECCION</th>
+            <th>INSPECTOR</th>
+            <th>FEHCA</th>
+            <th>ESTADO</th>
+            <th>INFORME</th>
+            <th>ACCIONES</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for cargoCerca in Cercas %}
+            <tr>
+                <td>{{cargoCerca.id}}</td>
+                <td>{{cargoCerca.zona.nombre}}</td>
+                <td>{{cargoCerca.inspector}}</td>
+                <td>{{cargoCerca.fecha}}</td>
+                <td>{{cargoCerca.estado}}</td>
+                <td>
+                    {% if cargoCerca.pdf %}
+                        <a href="{{ cargoCerca.pdf.url }}" download>Descargar PDF</a>
+                    {% else %}
+                        Ningún Documento Subido
+                    {% endif %}
+                </td>
+
+                <td>
+                    <a href="editarInspeccion/{{cargoCerca.id}}" class="btn btn-outline-warning"><i class="fa fa-pen"></i></a>
+                    <a href="#" 
+                    onclick="eliminarInspeccion('{{cargoCerca.id}}')"
+                    class="btn btn-outline-danger">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                    
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>
+<div class="text-center">
+    <a href="nuevaInspecion" class="btn btn-primary">
+        Agregar una Nueva Inspeccion
+    </a>
+</div>
+<br><br><br><br><br><br>
+<script>
+    function eliminarInspeccion(id){
+        Swal.fire({
+            title: "Desae eliminar?",
+            text: "¿Estas seguro de eliminar la Inspeccion de la Cerca de forma permanenete?",
+            icon: "Advertencia",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si, Borrar"
+            }).then((result) => {
+            if (result.isConfirmed) {
+
+                window.location.href="/eliminarInspeccion/"+id
+            
+            }
+        });
+        
+    }
+    
+</script>
+{% endblock %}

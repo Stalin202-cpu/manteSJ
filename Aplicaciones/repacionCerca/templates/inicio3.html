@@ -1,0 +1,70 @@
+{% extends './plantilla.html' %}
+{% load static %}
+{% block contenido %}
+<br><br><br><br><br><br>
+<h1 class="text-center">Listado de Reparaciones de la Cerca</h1>
+<br>
+<table class="table table-bordered table-striped table-hover" id="tbl_inspeccion">
+    <thead>
+        <tr class="table-success text-center">
+            <th>ID</th>
+            <th>NOMBRE DE LA CERCA A INSPECCIONAR</th>
+            <th>EQUIPO</th>
+            <th>FECHA</th>
+            <th>MATERIALES</th>
+            <th>FOTO DE LA REPARACIÓN</th>
+            <th>ACCIONES</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cargoReparacion in Repacion %}
+            <tr>
+                <td>{{ cargoReparacion.id }}</td>
+                <td>{{ cargoReparacion.cerca.inspector }}</td>
+                <td>{{ cargoReparacion.equipo }}</td>
+                <td>{{ cargoReparacion.fecha1 }}</td>
+                <td>{{ cargoReparacion.materiales }}</td>
+                <td class="text-center">
+                    {% if cargoReparacion.logo1 %}
+                        <img src="{{ cargoReparacion.logo1.url }}" height="20px" alt="Imagen de la Reparación">
+                    {% else %}
+                        Ninguna Imagen Subida
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="editarReparacion/{{ cargoReparacion.id }}" class="btn btn-outline-warning">
+                        <i class="fa fa-pen"></i>
+                    </a>
+                    <a href="#" onclick="eliminarInspeccion('{{ cargoReparacion.id }}')" class="btn btn-outline-danger">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>
+<div class="text-center">
+    <a href="nuevaReparacion" class="btn btn-primary">
+        Agregar una Nueva Reparación
+    </a>
+</div>
+<br><br><br><br><br><br>
+<script>
+    function eliminarInspeccion(id) {
+        Swal.fire({
+            title: "¿Desea eliminar?",
+            text: "¿Está seguro de eliminar la Reparación de la Cerca de forma permanente?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, borrar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/eliminarInspeccion/" + id;
+            }
+        });
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends './plantilla.html' %}
+{% load static %}
+
+{% block contenido %}
+<br><br><br><br><br><br>
+
+<div class="row">
+    <div class="col-md-3"></div>
+
+    <div class="col-md-6 bg-light p-4 rounded shadow-sm">
+        <h1 class="mb-4 text-center">Editar Reparación</h1>
+
+        <form action="/procesarEdicionReparacion" id="frm_editar_reparacion" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="cerca" class="form-label">Zona / Inspector Encargado:</label>
+                <select name="cerca" id="cerca" class="form-control" required>
+                    <option value="">Seleccione al Inspector Encargado</option>
+                    {% for e in cercas %}
+                        <option value="{{ e.id }}" {% if e.id == reparacionEditar.cerca.id %}selected{% endif %}>{{ e.inspector }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="equipo" class="form-label">Equipo Encargado:</label>
+                <input type="text" name="equipo" id="equipo" class="form-control" value="{{ reparacionEditar.equipo }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="fecha" class="form-label">Fecha de la Reparación:</label>
+                <input type="date" name="fecha" id="fecha" class="form-control" value="{{ reparacionEditar.fecha|date:'Y-m-d' }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="materiales" class="form-label">Materiales:</label>
+                <input type="text" name="materiales" id="materiales" class="form-control" value="{{ reparacionEditar.materiales }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="logo" class="form-label">Actualizar Foto (opcional):</label>
+                <input type="file" name="logo" id="logo" class="form-control" accept=".jpg,.jpeg,.png">
+                {% if reparacion.logo %}
+                    <small class="text-muted">Imagen actual: <a href="{{ reparacionEditar.logo1.url }}" target="_blank">Ver</a></small>
+                {% endif %}
+            </div>
+
+            <button class="btn btn-primary" type="submit">Actualizar</button>
+            <a class="btn btn-outline-danger" href="{% url 'inicio3' %}">Cancelar</a>
+        </form>
+    </div>
+
+    <div class="col-md-3"></div>
+</div>
+
+<!-- Validación con jQuery Validate -->
+<script>
+    $(document).ready(function () {
+        $("#frm_editar_reparacion").validate({
+            rules: {
+                cerca: { required: true },
+                equipo: { required: true },
+                fecha: {
+                    required: true,
+                    dateISO: true
+                },
+                materiales: { required: true }
+            },
+            messages: {
+                cerca: {
+                    required: "Por favor seleccione una zona."
+                },
+                equipo: {
+                    required: "Por favor ingrese el equipo encargado."
+                },
+                fecha: {
+                    required: "Por favor ingrese la fecha de reparación.",
+                    dateISO: "Por favor ingrese una fecha válida. Ej: 2025-06-12"
+                },
+                materiales: {
+                    required: "Por favor ingrese los materiales utilizados."
+                }
+            }
+        });
+    });
+</script>
+
+<script>
+    $("#logo").fileinput({
+        language: "es",
+        allowedFileExtensions: ["png", "jpg", "jpeg"],
+        showCaption: false,
+        dropZoneEnabled: true,
+        showClose: false
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends './plantilla.html' %}
+{% load static %}
+
+{% block contenido %}
+<br><br><br><br><br><br>
+<h1 class="text-center">Listado de Zonas de Seguridad</h1>
+<br>
+<table class="table table-bordered table-striped table-hover" id="tbl_zonas">
+    <thead class="table-success text-center">
+        <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>TIPO DE CERCA</th>
+            <th>LONGITUD</th>
+            <th>FOTO DE LA ZONA</th>
+            <th>ACCIONES</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cargoZonas in Seguridad %}
+            <tr>
+                <td>{{ cargoZonas.id }}</td>
+                <td>{{ cargoZonas.nombre }}</td>
+                <td>{{ cargoZonas.tipoCerca }}</td>
+                <td>{{ cargoZonas.longitud }}</td>
+                <td class="text-center">
+                    {% if cargoZonas.logo %}
+                        <img src="{{ cargoZonas.logo.url }}" height="20px" alt="Logo Zona">
+                    {% else %}
+                        Ninguna Imagen Subida
+                    {% endif %}
+                </td>
+                <td class="text-center">
+                    <a href="editarZona/{{ cargoZonas.id }}" class="btn btn-outline-warning">
+                        <i class="fa fa-pen"></i>
+                    </a>
+                    <a href="#" onclick="eliminarZona('{{ cargoZonas.id }}')" class="btn btn-outline-danger">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="text-center">
+    <a href="nuevaZona" class="btn btn-primary">Agregar Nueva Zona de Seguridad</a>
+</div>
+<br><br><br><br><br><br>
+
+<!-- SweetAlert2 -->
+<script>
+    function eliminarZona(id) {
+        Swal.fire({
+            title: "¿Desea eliminar?",
+            text: "¿Estás seguro de eliminar la Zona de Seguridad de forma permanente?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, borrar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/eliminarZona/" + id;
+            }
+        });
+    }
+</script>
+
+<!-- DataTables -->
+<script>
+    $(document).ready(function () {
+        $('#tbl_zonas').DataTable({
+            language: es,
+            responsive: true,
+            dom: 'Bfrtip',
+            buttons: [
+                { extend: 'copy', text: 'Copiar' },
+                { extend: 'excel', text: 'Exportar Excel' },
+                { extend: 'pdf', text: 'Exportar PDF' },
+                { extend: 'print', text: 'Imprimir' }
+            ]
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends './plantilla.html' %}
+{% load static %}
+{% block contenido %}
+<br><br><br><br><br><br>
+
+<div class="row">
+    <div class="col-md-3"></div>
+    
+    <div class="col-md-6 bg-light p-4 rounded shadow-sm">
+        <h1 class="mb-4 text-center">Nueva Inspección</h1>
+
+        <form action="guardarInspeccion" id="frm_nuevo_inspeccion" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+             <label for="zona" class="form-label">Zona:</label>
+             <select name="zona" id="zona" class="form-control" required>
+                 <option value="">Seleccione una Zona</option>
+                    {% for e in zonas %}
+                        <option value="{{ e.id }}">{{ e.nombre }}</option>
+                    {% endfor %}
+             </select>
+
+            <div class="mb-3">
+                <label for="inspector" class="form-label">Inspector Encargado:</label>
+                <input type="text" name="inspector" id="inspector" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="fecha" class="form-label">Fecha de la Inspección:</label>
+                <input type="date" name="fecha" id="fecha" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="estado" class="form-label">Estado de la Cerca:</label>
+                <input type="text" name="estado" id="estado" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="pdf" class="form-label">Seleccionar PDF:</label>
+                <input type="file" name="pdf" id="pdf" class="form-control" accept="application/pdf"><br><br>
+            </div>
+
+            <button class="btn btn-success" type="submit">Guardar</button>
+            <a class="btn btn-outline-danger" href="{% url 'inicio2' %}">Cancelar</a>
+        </form>
+    </div>
+
+    <div class="col-md-3"></div>
+</div>
+
+<!-- Validación con jQuery Validate -->
+<script>
+    $(document).ready(function () {
+        $("#frm_nuevo_inspeccion").validate({
+            rules: {
+                zona: { required: true },
+                inspector: { required: true },
+                fecha: {
+                    required: true,
+                    dateISO: true
+                },
+                estado: { required: true },
+                pdf: {
+                    extension: "pdf"
+                }
+            },
+            messages: {
+                zona: {
+                    required: "Por favor seleccione una zona."
+                },
+                inspector: {
+                    required: "Por favor ingrese el nombre del inspector."
+                },
+                fecha: {
+                    required: "Por favor ingrese la fecha de inspección.",
+                    dateISO: "Por favor ingrese una fecha válida. Ej: 2025-05-27"
+                },
+                estado: {
+                    required: "Por favor ingrese el estado de la cerca."
+                },
+                pdf: {
+                    extension: "Solo se permite subir archivos en formato PDF."
+                }
+            }
+        });
+    });
+</script>
+<script>
+    $("#pdf").fileinput({
+            language: "es",
+            allowedFileExtensions: ["pdf"],
+            showCaption: false,
+            dropZoneEnabled: true,
+            showClose: false
+    });
+</script>
+{% endblock %}

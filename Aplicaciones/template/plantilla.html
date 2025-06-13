@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Neco</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous">
+
+  <!-- SweetAlert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- DataTables -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+  <!-- Bootstrap FileInput -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.4/js/fileinput.min.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.4/css/fileinput.min.css" crossorigin="anonymous" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.4/js/locales/es.min.js"></script>
+
+  <!-- Plantilla y estilos personalizados -->
+  <link rel="stylesheet" href="{% static 'Plantilla/nico/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'Plantilla/nico/css/responsive.css' %}">
+  <link rel="stylesheet" href="{% static 'Plantilla/nico/css/jquery.mCustomScrollbar.min.css' %}">
+  <link rel="stylesheet" href="{% static 'Plantilla/nico/css/owl.carousel.min.css' %}">
+  <link rel="stylesheet" href="{% static 'Plantilla/nico/css/owl.theme.default.min.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+  <link rel="icon" href="{% static 'Plantilla/nico/images/fevicon.png' %}" type="image/gif">
+</head>
+
+<body>
+  <!-- Header Top -->
+  <div class="header_top_section">
+    <div class="container">
+      <div class="header_main d-flex justify-content-between align-items-center">
+        <div class="location_text"><img src="{% static 'Plantilla/nico/images/map-icon.png' %}"><span class="padding_left_10"><a href="#">Location</a></span></div>
+        <div class="location_text"><img src="{% static 'Plantilla/nico/images/call-icon.png' %}"><span class="padding_left_10"><a href="#">Call ; 01 1234567890</a></span></div>
+        <div class="location_text"><img src="{% static 'Plantilla/nico/images/mail-icon.png' %}"><span class="padding_left_10"><a href="#">demo@gmail.com</a></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header Menu -->
+  <div class="header_section">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#"><img src="{% static 'Plantilla/nico/images/logo.png' %}" alt="Logo"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+          <ul class="navbar-nav d-flex flex-row">
+            <li class="nav-item mx-2"><a class="nav-link" href="{% url 'inicio' %}">Zona de Seguridad</a></li>
+            <li class="nav-item mx-2"><a class="nav-link" href="{% url 'inicio2' %}">Inspección de la Cerca</a></li>
+            <li class="nav-item mx-2"><a class="nav-link" href="{% url 'inicio3' %}">Reparación de la Cerca</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    {% block contenido %}{% endblock %}
+  </div>
+
+  <!-- Footer -->
+  <div class="footer_section">
+    <div class="container">
+      <div class="footer_location_text">
+        <ul>
+          <li><img src="{% static 'Plantilla/nico/images/map-icon.png' %}"><span class="padding_left_10"><a href="#">Loram Ipsum hosting web</a></span></li>
+          <li><img src="{% static 'Plantilla/nico/images/call-icon.png' %}"><span class="padding_left_10"><a href="#">Call : +7586656566</a></span></li>
+          <li><img src="{% static 'Plantilla/nico/images/mail-icon.png' %}"><span class="padding_left_10"><a href="#">demo@gmail.com</a></span></li>
+        </ul>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-sm-6">
+          <h2 class="useful_text">Enlaces útiles</h2>
+          <ul class="footer_menu">
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Acerca de</a></li>
+            <li><a href="#">Servicio</a></li>
+            <li><a href="#">Contáctanos</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+          <h2 class="useful_text">Reparación</h2>
+          <p class="lorem_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+          <h2 class="useful_text">Redes sociales</h2>
+          <ul class="social_icon">
+            <li><a href="#"><img src="{% static 'Plantilla/nico/images/fb-icon.png' %}"></a></li>
+            <li><a href="#"><img src="{% static 'Plantilla/nico/images/twitter-icon.png' %}"></a></li>
+            <li><a href="#"><img src="{% static 'Plantilla/nico/images/linkedin-icon.png' %}"></a></li>
+            <li><a href="#"><img src="{% static 'Plantilla/nico/images/youtub-icon.png' %}"></a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+          <h2 class="useful_text">Centro de reparación</h2>
+          <p class="footer_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Copyright -->
+  <div class="copyright_section">
+    <div class="container">
+      <p class="copyright_text">2019 Todos los derechos reservados. Diseñado por <a href="https://html.design">Free HTML Templates</a> Distribuido por <a href="https://themewagon.com">ThemeWagon</a></p>
+    </div>
+  </div>
+
+  <!-- Scripts (al final del body para mejor rendimiento) -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.flash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.4/js/fileinput.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.4/js/locales/es.min.js"></script>
+  <script src="{% static 'Plantilla/nico/js/plugin.js' %}"></script>
+  <script src="{% static 'Plantilla/nico/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+  <script src="{% static 'Plantilla/nico/js/custom.js' %}"></script>
+  <script src="{% static 'Plantilla/nico/js/owl.carousel.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+
+  {% if messages %}
+    {% for mensaje in messages %}
+      <script>
+        Swal.fire({
+          title: "CONFIRMACIÓN",
+          text: "{{ mensaje }}",
+          icon: "success"
+        });
+      </script>
+    {% endfor %}
+  {% endif %}
+
+  <style>
+    .error {
+      color: red;
+      font-weight: bold;
+    }
+    .form-control.error {
+      border: 1px solid red;
+    }
+  </style>
+</body>
+
+</html>

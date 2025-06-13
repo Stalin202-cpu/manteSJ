@@ -1,0 +1,88 @@
+{% extends './plantilla.html' %}
+{% load static %}
+{% block contenido %}
+<br><br><br><br><br><br>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 bg-light p-4 rounded shadow-sm">
+        <h1 class="mb-4">Editar Inspección</h1>
+        <form action="/procesarEdicionInspeccion" id="frm_editar_inspeccion" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ inspeccionEditar.id }}">
+
+            <label for="zona">Zonas:</label>
+            <select name="zona" id="zona" class="form-control mb-3" required>
+                <option value="">Seleccione una Zona</option>
+                {% for e in zonas %}
+                    <option value="{{ e.id }}" {% if e.id == inspeccionEditar.zona.id %}selected{% endif %}>{{ e.nombre }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="inspector">Inspector Encargado:</label>
+            <input class="form-control mb-3" type="text" name="inspector" id="inspector" value="{{ inspeccionEditar.inspector }}" required>
+
+            <label for="fecha">Fecha de la Inspección:</label>
+            <input class="form-control mb-3" type="date" name="fecha" id="fecha" value="{{ inspeccionEditar.fecha }}" required>
+
+            <label for="estado">Estado de la Cerca:</label>
+            <input class="form-control mb-3" type="text" name="estado" id="estado" value="{{ inspeccionEditar.estado }}" required>
+
+            <label for="pdf">Actualizar PDF (opcional):</label>
+            <input type="file" name="pdf" id="pdf" class="form-control mb-3" accept="application/pdf"><br><br><br>
+
+            <button class="btn btn-warning" type="submit">
+                <i class="fa fa-pen"></i> Editar
+            </button>
+            <a class="btn btn-outline-danger" href="{% url 'inicio2' %}">
+                <i class="fa fa-times"></i> Cancelar
+            </a>
+        </form>
+        <br>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+
+<script>
+    $("#frm_editar_inspeccion").validate({
+        rules: {
+            "fecha": {
+                required: true,
+                dateISO: true
+            },
+            "inspector": {
+                required: true
+            },
+            "estado": {
+                required: true
+            },
+            "zona": {
+                required: true
+            }
+        },
+        messages: {
+            "fecha": {
+                required: "Por favor ingrese la fecha.",
+                dateISO: "Formato de fecha inválido. Ejemplo: 2025-06-11"
+            },
+            "inspector": {
+                required: "Por favor ingrese el nombre del inspector."
+            },
+            "estado": {
+                required: "Por favor describa el estado de la cerca."
+            },
+            "zona": {
+                required: "Por favor seleccione una zona."
+            }
+        }
+    });
+</script>
+<script>
+    $("#pdf").fileinput({
+            language: "es",
+            allowedFileExtensions: ["pdf"],
+            showCaption: false,
+            dropZoneEnabled: true,
+            showClose: false
+    });
+</script>
+{% endblock %}
